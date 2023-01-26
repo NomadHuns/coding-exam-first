@@ -16,13 +16,13 @@ import shop.mtcoding.codingexam.model.User;
 public class CommentController {
 
     @Autowired
-    HttpSession session;
+    private HttpSession session;
 
     @Autowired
-    BoardRepository boardRepository;
+    private BoardRepository boardRepository;
 
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
 
     @PostMapping("/comment/{id}/write")
     public String write(@PathVariable("id") int id, String content) {
