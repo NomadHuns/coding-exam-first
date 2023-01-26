@@ -47,6 +47,7 @@
                     display: flex;
                     justify-content: center;
                 }
+
                 .comment_box {
                     display: grid;
                     grid-template-columns: 1fr 5fr;
@@ -56,6 +57,11 @@
                     border: 1px solid;
                     display: flex;
                     justify-content: center;
+                }
+
+                .right_box {
+                    display: flex;
+                    justify-content: right;
                 }
             </style>
         </head>

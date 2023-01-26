@@ -19,4 +19,12 @@
    <insert id="insert">
       insert into board_tb(title, content, user_id, created_at) values(#{title}, #{content}, #{userId}, now())
    </insert>
+
+   <select id="findByIdAndUserId" resultType="shop.mtcoding.codingexam.model.Board">
+      select * from board_tb where id = #{id} and user_id = #{userId}
+   </select>
+
+   <update id="updateByIdAndUserId">
+      update board_tb set title = #{title}, content = #{content} where id = #{id} and user_id = #{userId}
+   </update>
 </mapper>

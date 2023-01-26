@@ -78,4 +78,35 @@ public class BoardController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable("id") int id) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        Board board = boardRepository.findByIdAndUserId(id, principal.getId());
+        if (board == null) {
+            return "redirect:/missing";
+        }
+        session.setAttribute("board", board);
+        return "board/updateForm";
+    }
+
+    @PostMapping("/board/{id}/update")
+    public String update(@PathVariable("id") int id, String title, String content) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        Board board = boardRepository.findByIdAndUserId(id, principal.getId());
+        if (board == null) {
+            return "redirect:/missing";
+        }
+        int result = boardRepository.updateByIdAndUserId(title, content, board.getId(), principal.getId());
+        if (result != 1) {
+            return "redirect:/missing";
+        }
+        return "redirect:/board/" + board.getId();
+    }
 }

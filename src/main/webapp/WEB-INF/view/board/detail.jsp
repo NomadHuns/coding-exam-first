@@ -27,6 +27,11 @@
                     dolorem modi iure et corporis tempora dolores cum, ex quasi error facilis commodi quidem. Quae dolor
                     quisquam deserunt!
                 </div>
+                <div class="right_box">
+                    <form action="/board/${board.id}/updateForm" method="get">
+                        <button type="submit">수정하기</button>
+                    </form>
+                </div>
                 <hr>
                 <div class="comment_box">
                     <c:forEach items="${commentDtoList}" var="comment">
