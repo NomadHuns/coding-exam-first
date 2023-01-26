@@ -23,13 +23,28 @@ public class UserController {
     public String loginForm() {
         return "user/loginForm";
     }
+
     @PostMapping("/login")
-    public String login(String username, String password){
+    public String login(String username, String password) {
         User principal = userRepository.findByUsernameAndPassword(username, password);
         if (principal == null) {
             return "redirect:/login-form";
         }
         session.setAttribute("principal", principal);
         return "redirect:board/list";
+    }
+
+    @GetMapping("/join-form")
+    public String joinForm() {
+        return "user/joinForm";
+    }
+
+    @PostMapping("/join")
+    public String join(String username, String password, String email){
+        int result = userRepository.insert(username, password, email);
+        if (result != 1) {
+            return "redirect:/join-form";
+        }
+        return "redirect:/login-form";
     }
 }
