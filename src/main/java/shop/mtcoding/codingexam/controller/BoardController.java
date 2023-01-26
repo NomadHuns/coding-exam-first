@@ -16,6 +16,7 @@ import shop.mtcoding.codingexam.model.Board;
 import shop.mtcoding.codingexam.model.BoardRepository;
 import shop.mtcoding.codingexam.model.CommentRepository;
 import shop.mtcoding.codingexam.model.User;
+import shop.mtcoding.codingexam.util.PrincipalUtil;
 
 @Controller
 public class BoardController {
@@ -29,12 +30,12 @@ public class BoardController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    PrincipalUtil principalUtil;
+
     @GetMapping({ "/", "/board/list" })
     public String boardList(Model model) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         List<Board> boardList = boardRepository.findByUserId(principal.getId());
         model.addAttribute("boardList", boardList);
         return "board/list";
@@ -42,10 +43,7 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String boardDetail(@PathVariable("id") int id, Model model) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        principalUtil.checkPrincipal();
         Board board = boardRepository.findById(id);
         if (board == null) {
             return "redirect:/missing";
@@ -59,19 +57,13 @@ public class BoardController {
 
     @GetMapping("/board/write-form")
     public String writeForm() {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        principalUtil.checkPrincipal();
         return "board/writeForm";
     }
 
     @PostMapping("/board/write")
     public String write(String title, String content) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         int result = boardRepository.insert(title, content, principal.getId());
         if (result != 1) {
             return "redirect:/missing";
@@ -81,10 +73,7 @@ public class BoardController {
 
     @GetMapping("/board/{id}/updateForm")
     public String updateForm(@PathVariable("id") int id) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         Board board = boardRepository.findByIdAndUserId(id, principal.getId());
         if (board == null) {
             return "redirect:/missing";
@@ -95,10 +84,7 @@ public class BoardController {
 
     @PostMapping("/board/{id}/update")
     public String update(@PathVariable("id") int id, String title, String content) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         Board board = boardRepository.findByIdAndUserId(id, principal.getId());
         if (board == null) {
             return "redirect:/missing";

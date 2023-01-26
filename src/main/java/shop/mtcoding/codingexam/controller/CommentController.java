@@ -1,7 +1,5 @@
 package shop.mtcoding.codingexam.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,12 +9,10 @@ import shop.mtcoding.codingexam.model.Board;
 import shop.mtcoding.codingexam.model.BoardRepository;
 import shop.mtcoding.codingexam.model.CommentRepository;
 import shop.mtcoding.codingexam.model.User;
+import shop.mtcoding.codingexam.util.PrincipalUtil;
 
 @Controller
 public class CommentController {
-
-    @Autowired
-    private HttpSession session;
 
     @Autowired
     private BoardRepository boardRepository;
@@ -24,12 +20,12 @@ public class CommentController {
     @Autowired
     private CommentRepository commentRepository;
 
+    @Autowired
+    PrincipalUtil principalUtil;
+
     @PostMapping("/comment/{id}/write")
     public String write(@PathVariable("id") int id, String content) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         Board board = boardRepository.findById(id);
         if (board == null) {
             return "redirect:/missing";

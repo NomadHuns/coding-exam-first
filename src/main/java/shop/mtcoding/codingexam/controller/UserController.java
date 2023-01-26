@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.codingexam.model.User;
 import shop.mtcoding.codingexam.model.UserRepository;
+import shop.mtcoding.codingexam.util.PrincipalUtil;
 
 @Controller
 public class UserController {
@@ -19,6 +20,9 @@ public class UserController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    PrincipalUtil principalUtil;
+
     @GetMapping("/login-form")
     public String loginForm() {
         return "user/loginForm";
@@ -26,11 +30,11 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(String username, String password) {
-        User principal = userRepository.findByUsernameAndPassword(username, password);
-        if (principal == null) {
+        User user = userRepository.findByUsernameAndPassword(username, password);
+        if (user == null) {
             return "redirect:/login-form";
         }
-        session.setAttribute("principal", principal);
+        session.setAttribute("principal", user);
         return "redirect:/board/list";
     }
 
@@ -56,19 +60,13 @@ public class UserController {
 
     @GetMapping("/user/update-form")
     public String updateForm() {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        principalUtil.checkPrincipal();
         return "user/updateForm";
     }
 
     @PostMapping("/user/update")
     public String update(String username, String password, String email) {
-        User principal = (User) session.getAttribute("principal");
-        if (principal == null) {
-            return "redirect:/login-form";
-        }
+        User principal = principalUtil.checkPrincipal();
         int result = userRepository.updateById(username, password, email, principal.getId());
         if (result != 1) {
             return "redirect:/missing";
