@@ -31,7 +31,7 @@ public class UserController {
             return "redirect:/login-form";
         }
         session.setAttribute("principal", principal);
-        return "redirect:board/list";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/join-form")
@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(String username, String password, String email){
+    public String join(String username, String password, String email) {
         int result = userRepository.insert(username, password, email);
         if (result != 1) {
             return "redirect:/join-form";
