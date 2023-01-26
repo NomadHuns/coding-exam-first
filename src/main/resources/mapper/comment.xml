@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shop.mtcoding.codingexam.model.CommentRepository">
+
+   <select id="findById" resultType="shop.mtcoding.codingexam.model.Comment">
+      select * from comment_tb where id = #{id}
+   </select>
+
+   <select id="findByBoardId" resultType="shop.mtcoding.codingexam.dto.CommentDto">
+      select c.id, u.username, c.user_id, c.content, c.created_at  from (SELECT * FROM COMMENT_TB where board_id = #{boardId}) c inner join USER_TB u on u.id = c.user_id
+   </select>
+</mapper>

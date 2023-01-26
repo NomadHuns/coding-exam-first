@@ -14,10 +14,10 @@ import shop.mtcoding.codingexam.model.UserRepository;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    HttpSession session;
+    private HttpSession session;
 
     @GetMapping("/login-form")
     public String loginForm() {

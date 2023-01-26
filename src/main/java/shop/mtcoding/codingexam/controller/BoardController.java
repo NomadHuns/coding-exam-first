@@ -10,18 +10,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import shop.mtcoding.codingexam.dto.CommentDto;
 import shop.mtcoding.codingexam.model.Board;
 import shop.mtcoding.codingexam.model.BoardRepository;
+import shop.mtcoding.codingexam.model.CommentRepository;
 import shop.mtcoding.codingexam.model.User;
 
 @Controller
 public class BoardController {
 
     @Autowired
-    HttpSession session;
+    private HttpSession session;
 
     @Autowired
-    BoardRepository boardRepository;
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping({ "/", "/board/list" })
     public String boardList(Model model) {
@@ -44,7 +49,10 @@ public class BoardController {
         if (board == null) {
             return "redirect:/missing";
         }
+        List<CommentDto> commentDtoList = commentRepository.findByBoardId(board.getId());
         model.addAttribute("board", board);
+        model.addAttribute("commentDtoList", commentDtoList);
+
         return "board/detail";
     }
 

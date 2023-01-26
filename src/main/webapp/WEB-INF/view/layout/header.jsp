@@ -47,6 +47,16 @@
                     display: flex;
                     justify-content: center;
                 }
+                .comment_box {
+                    display: grid;
+                    grid-template-columns: 1fr 5fr;
+                }
+
+                .comment_content {
+                    border: 1px solid;
+                    display: flex;
+                    justify-content: center;
+                }
             </style>
         </head>
 

@@ -9,11 +9,29 @@
             <hr>
             <%@ include file="../layout/nav.jsp" %>
                 <div class="board_box">
-                        <div class="board_content">${board.id}</div>
-                        <div class="board_content">${board.title}</div>
-                    </div>
-                    <div class="border_box">
-                        ${board.content}
+                    <div class="board_content">${board.id}</div>
+                    <div class="board_content">${board.title}</div>
+                </div>
+                <div class="border_box">
+                    ${board.content}
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati culpa temporibus veniam,
+                    excepturi beatae quo nostrum, vero tenetur laborum doloribus inventore eveniet quisquam voluptatum
+                    eum itaque hic est labore repellendus!
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquam veritatis, repellat adipisci nulla
+                    sequi asperiores, ipsam autem fugiat ex dicta facere magnam odio libero provident corrupti quasi
+                    quod fugit neque.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, ratione aliquam? Voluptatum
+                    incidunt neque repudiandae error rem quo ipsam, labore laboriosam hic beatae molestiae. Tempore
+                    molestiae laboriosam repellendus doloremque sed?
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque corrupti, impedit deserunt
+                    dolorem modi iure et corporis tempora dolores cum, ex quasi error facilis commodi quidem. Quae dolor
+                    quisquam deserunt!
+                </div>
+                <div class="comment_box">
+                    <c:forEach items="${commentDtoList}" var="comment">
+                    <div class="comment_content">${comment.username}</div>
+                    <div class="comment_content">${comment.content}</div>
+                    </c:forEach>
                 </div>
 
                 <%@ include file="../layout/footer.jsp" %>
