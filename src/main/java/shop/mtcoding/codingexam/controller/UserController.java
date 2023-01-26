@@ -47,4 +47,33 @@ public class UserController {
         }
         return "redirect:/login-form";
     }
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.removeAttribute("principal");
+        return "redirect:/";
+    }
+
+    @GetMapping("/user/update-form")
+    public String updateForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        return "user/updateForm";
+    }
+
+    @PostMapping("/user/update")
+    public String update(String username, String password, String email) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        int result = userRepository.updateById(username, password, email, principal.getId());
+        if (result != 1) {
+            return "redirect:/missing";
+        }
+        session.removeAttribute("principal");
+        return "redirect:/login-form";
+    }
 }

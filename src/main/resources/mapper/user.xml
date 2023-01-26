@@ -21,7 +21,7 @@
    </delete>
 
    <update id="updateById">
-      update user_tb set password = #{password} where id = #{id}
+      update user_tb set password = #{password}, username = #{username}, email = #{email} where id = #{id}
    </update>
 
    <select id="findByUsernameAndPassword" resultType="shop.mtcoding.codingexam.model.User">
