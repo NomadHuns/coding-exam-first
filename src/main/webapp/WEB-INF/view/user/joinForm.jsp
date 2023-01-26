@@ -13,15 +13,15 @@
                         <table border="1">
                             <tr>
                                 <th>유저네임</th>
-                                <td><input type="text" name="username"></td>
+                                <td><input type="text" name="username" required></td>
                             </tr>
                             <tr>
                                 <th>패스워드</th>
-                                <td><input type="password" name="password"></td>
+                                <td><input type="password" name="password" required></td>
                             </tr>
                             <tr>
                                 <th>이메일</th>
-                                <td><input type="email" name="email"></td>
+                                <td><input type="email" name="email" required></td>
                             </tr>
                         </table>
                         <button type="submit">회원가입</button>

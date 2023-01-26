@@ -24,5 +24,9 @@
                         </c:forEach>
                     </table>
                 </div>
-
+                <div class="content">
+                    <form action="/board/write-form" method="get">
+                        <button type="submit">게시글작성</button>
+                    </form>
+                </div>
                 <%@ include file="../layout/footer.jsp" %>

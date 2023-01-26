@@ -3,12 +3,14 @@ package shop.mtcoding.codingexam.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.namespace.QName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import shop.mtcoding.codingexam.dto.CommentDto;
 import shop.mtcoding.codingexam.model.Board;
@@ -56,4 +58,25 @@ public class BoardController {
         return "board/detail";
     }
 
+    @GetMapping("/board/write-form")
+    public String writeForm() {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        return "board/writeForm";
+    }
+
+    @PostMapping("/board/write")
+    public String write(String title, String content) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        int result = boardRepository.insert(title, content, principal.getId());
+        if (result != 1) {
+            return "redirect:/missing";
+        }
+        return "redirect:/";
+    }
 }
