@@ -12,4 +12,8 @@
    <select id="findByBoardId" resultType="shop.mtcoding.codingexam.dto.CommentDto">
       select c.id, u.username, c.user_id, c.content, c.created_at  from (SELECT * FROM COMMENT_TB where board_id = #{boardId}) c inner join USER_TB u on u.id = c.user_id
    </select>
+
+   <insert id="insert">
+      insert into comment_tb(user_id, board_id, content, created_at) values(#{userId}, #{boardId}, #{content}, now())
+   </insert>
 </mapper>

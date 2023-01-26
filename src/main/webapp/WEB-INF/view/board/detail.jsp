@@ -27,11 +27,19 @@
                     dolorem modi iure et corporis tempora dolores cum, ex quasi error facilis commodi quidem. Quae dolor
                     quisquam deserunt!
                 </div>
+                <hr>
                 <div class="comment_box">
                     <c:forEach items="${commentDtoList}" var="comment">
-                    <div class="comment_content">${comment.username}</div>
-                    <div class="comment_content">${comment.content}</div>
+                        <div class="comment_content">${comment.username}</div>
+                        <div class="comment_content">${comment.content}</div>
                     </c:forEach>
+                </div>
+                <hr>
+                <div class="comment_box">
+                    <form action="/comment/${board.id}/write" method="post">
+                        <textarea name="content" cols="50" rows="3"></textarea>
+                        <button type="submit">댓글작성</button>
+                    </form>
                 </div>
 
                 <%@ include file="../layout/footer.jsp" %>

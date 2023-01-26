@@ -3,7 +3,6 @@ package shop.mtcoding.codingexam.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.namespace.QName;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
