@@ -11,4 +11,8 @@
    <select id="findByUserId" resultType="shop.mtcoding.codingexam.model.Board">
       select * from board_tb where user_id = #{userId}
    </select>
+
+   <select id="findById" resultType="shop.mtcoding.codingexam.model.Board">
+      select * from board_tb where id = #{id}
+   </select>
 </mapper>

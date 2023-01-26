@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import shop.mtcoding.codingexam.model.Board;
 import shop.mtcoding.codingexam.model.BoardRepository;
@@ -22,7 +23,7 @@ public class BoardController {
     @Autowired
     BoardRepository boardRepository;
 
-    @GetMapping("/board/list")
+    @GetMapping({ "/", "/board/list" })
     public String boardList(Model model) {
         User principal = (User) session.getAttribute("principal");
         if (principal == null) {
@@ -31,6 +32,20 @@ public class BoardController {
         List<Board> boardList = boardRepository.findByUserId(principal.getId());
         model.addAttribute("boardList", boardList);
         return "board/list";
+    }
+
+    @GetMapping("/board/{id}")
+    public String boardDetail(@PathVariable("id") int id, Model model) {
+        User principal = (User) session.getAttribute("principal");
+        if (principal == null) {
+            return "redirect:/login-form";
+        }
+        Board board = boardRepository.findById(id);
+        if (board == null) {
+            return "redirect:/missing";
+        }
+        model.addAttribute("board", board);
+        return "board/detail";
     }
 
 }

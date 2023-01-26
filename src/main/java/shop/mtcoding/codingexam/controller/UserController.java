@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     HttpSession session;
 
-    @GetMapping({ "/", "/login-form" })
+    @GetMapping("/login-form")
     public String loginForm() {
         return "user/loginForm";
     }
